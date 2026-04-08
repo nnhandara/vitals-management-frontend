@@ -1,38 +1,38 @@
-.App {
-  text-align: center;
+.container {
+  width: 100%;
+  padding: 0; /* or whatever spacing you want */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.form-shell {
+  width: 100%;
+  height: fit-content;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 1.5rem;
+  font-family: 'DM Sans', sans-serif;
 }
 
-.App-link {
-  color: #61dafb;
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.form-grid input,
+.form-grid select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.form-grid input:focus,
+.form-grid select:focus {
+  outline: none;
+  border-color: #2e7d32;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  font-weight: bold;
 }
