@@ -42,15 +42,19 @@ const PatientList = () => {
               <th>DOB</th>
               <th>Gender</th>
               <th>Address</th>
+              <th>Nationality</th>
+              <th>Religion</th>
             </tr>
           </thead>
           <tbody>
             {patients.map((p) => (
-              <tr key={p.id}>
+              <tr key={p.personId}>
                 <td>{p.name}</td>
                 <td>{p.dateOfBirth}</td>
                 <td>{p.gender}</td>
                 <td>{p.address}</td>
+                <td>{p.nationality}</td>
+                <td>{p.religion}</td>
               </tr>
             ))}
           </tbody>
