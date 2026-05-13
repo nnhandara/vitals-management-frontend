@@ -2,7 +2,8 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import PersonForm from "./components/PersonForm";
-import PersonList from "./components/PersonList";
+import PersonList from "./components/PatientList";
+import VitalsForm from "./components/VitalsForm";
 import "./App.css";
 
 function App() {
@@ -20,8 +21,10 @@ function App() {
 
         <div className="container">
           <Routes>
+            <Route path="/home" element={<PersonForm refresh={refresh} />} />
             <Route path="/" element={<PersonForm refresh={refresh} />} />
             <Route path="/patients" element={<PersonList />} />
+            <Route path="/vitals/:personId" element={<VitalsForm />} />
           </Routes>
         </div>
       </div>

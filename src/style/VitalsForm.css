@@ -1,0 +1,149 @@
+.vitals-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: #f6f4ef;
+  font-family: Arial, sans-serif;
+}
+
+.vitals-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(94, 62, 3, 0.12);
+}
+
+.vitals-header h2 {
+  margin: 0;
+  color: #3b2602;
+  font-size: 28px;
+}
+
+.vitals-header p {
+  margin-top: 8px;
+  color: #666;
+}
+
+.vitals-message {
+  margin: 20px 0;
+  padding: 12px 15px;
+  background: #fff5dd;
+  color: #5e3e03;
+  border-left: 4px solid #5e3e03;
+  border-radius: 8px;
+}
+
+.selected-patient-card {
+  margin: 20px 0;
+  padding: 15px;
+  background: #f8f1e4;
+  border-radius: 12px;
+  display: flex;
+  gap: 10px;
+  color: #3b2602;
+}
+
+.vitals-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #3b2602;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 12px 14px;
+  border: 1px solid #d4c7ad;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  background: #fff;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #5e3e03;
+  box-shadow: 0 0 0 3px rgba(94, 62, 3, 0.12);
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.save-vitals-btn {
+  grid-column: span 2;
+  padding: 14px 20px;
+  background-color: #5e3e03;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.save-vitals-btn:hover {
+  background-color: #4a3002;
+}
+
+@media (max-width: 700px) {
+  .vitals-form {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width,
+  .save-vitals-btn {
+    grid-column: span 1;
+  }
+}
+
+.patient-info-card {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  padding: 18px;
+  background: #f8f1e4;
+  border: 1px solid #e4d4b7;
+  border-radius: 14px;
+  color: #3b2602;
+}
+
+.patient-info-card div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.info-label {
+  font-size: 13px;
+  color: #7a6a52;
+}
+
+.patient-info-card strong {
+  font-size: 16px;
+}
+
+@media (max-width: 700px) {
+  .patient-info-card {
+    grid-template-columns: 1fr;
+  }
+}

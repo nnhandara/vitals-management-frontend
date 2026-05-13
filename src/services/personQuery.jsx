@@ -24,18 +24,56 @@ export const getAllPersons = async () => {
   return response.data.data.getAllPerson;
 };
 
+export const getPersonById = async (personId) => {
+  const query = {
+    query: `
+      query($personId: String!) {
+        getPersonById(personId: $personId) {
+          personId
+          name
+          gender
+          dateOfBirth
+          address
+          nationality
+          religion
+        }
+      }
+    `,
+    variables: {
+      personId,
+    },
+  };
+
+  const response = await axios.post(GRAPHQL_URL, query);
+
+  return response.data.data.getPersonById;
+};
+
 
 export const searchPersons = async (name) => {
   const query = {
     query: `
       query($name: String!) {
-        searchPerson(name: $name) {
+        searchPersonQuery(name: $name) {
+          personId
           name
+          address
+          dateOfBirth
+          gender
+          nationality
+          religion
         }
       }
-    `
+    `,
+    variables: {
+      name,
+    },
   };
 
   const response = await axios.post(GRAPHQL_URL, query);
-  return response.data.data.searchPerson;
+
+  console.log("Search response:", response.data);
+
+  return response.data.data.searchPersonQuery;
 };
+

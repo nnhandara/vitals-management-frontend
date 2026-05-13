@@ -7,19 +7,20 @@ const Navbar = ({ user, onLogout }) => {
 
   const links = [
     {
-      to: "/dashboard",
-      label: "Dashboard",
+      to: "/home",
+      label: "Home",
       icon: (
         <svg
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <rect x="3" y="3" width="7" height="7" />
-          <rect x="14" y="3" width="7" height="7" />
-          <rect x="3" y="14" width="7" height="7" />
-          <rect x="14" y="14" width="7" height="7" />
+          <path d="M3 10.5L12 3l9 7.5" />
+          <path d="M5 9.5V21h14V9.5" />
+          <path d="M9 21v-6h6v6" />
         </svg>
       ),
     },
@@ -39,8 +40,8 @@ const Navbar = ({ user, onLogout }) => {
       ),
     },
     {
-      to: "/vitals",
-      label: "Vitals",
+      to: "/dashboard",
+      label: "Dashboard",
       icon: (
         <svg
           viewBox="0 0 24 24"
@@ -48,7 +49,10 @@ const Navbar = ({ user, onLogout }) => {
           stroke="currentColor"
           strokeWidth="2"
         >
-          <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
         </svg>
       ),
     },

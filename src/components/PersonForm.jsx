@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import { createPerson, updatePerson, searchPersons } from "../services/personService";
+import { createPerson } from "../services/personService";
+import { searchPersons } from "../services/personQuery";
+import { useNavigate } from "react-router-dom";
 import "../style/PersonForm.css";
 
 const PersonForm = ({ refresh, editPerson }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
-  const [id, setId] = useState("");
+  const [personId, setPersonId] = useState("");
   const [name, setName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [gender, setGender] = useState("");
@@ -16,7 +20,7 @@ const PersonForm = ({ refresh, editPerson }) => {
   const [religion, setReligion] = useState("");
 
   const resetForm = () => {
-    setId("");
+    setPersonId("");
     setName("");
     setDateOfBirth("");
     setGender("");
@@ -29,18 +33,27 @@ const PersonForm = ({ refresh, editPerson }) => {
     try {
       if (!searchTerm.trim()) {
         setSearchResults([]);
+        setMessage("");
         return;
       }
 
       const results = await searchPersons(searchTerm);
-      setSearchResults(results || []);
+
+      if (!results || results.length === 0) {
+        setSearchResults([]);
+        setMessage("Person does not exist");
+      } else {
+        setSearchResults(results);
+        setMessage("");
+      }
     } catch (error) {
-      console.error("Search error:", error);
+      console.error("Search error:", error.response?.data || error);
+      setMessage("Error searching for person");
     }
   };
 
   const handleSelectPerson = (person) => {
-    setId(person.id || "");
+    setPersonId(person.personId || "");
     setName(person.name || "");
     setDateOfBirth(person.dateOfBirth || "");
     setGender(person.gender || "");
@@ -52,53 +65,44 @@ const PersonForm = ({ refresh, editPerson }) => {
     setSearchResults([]);
     setSearchTerm(person.name || "");
 
-    alert("Patient already exists. You can update instead.");
+    alert("Patient already exists.");
   };
 
-  const handleSubmit = async () => {
-    try {
-      if (!showForm) {
-        setShowForm(true);
-        return;
-      }
-
-      if (!name.trim() || !dateOfBirth) {
-        alert("Please enter at least name and date of birth.");
-        return;
-      }
-
-      if (editPerson || id) {
-        await updatePerson(id, {
-          name,
-          dateOfBirth,
-          gender,
-          address,
-          nationality,
-          religion,
-        });
-        alert("Updated!");
-      } else {
-        await createPerson({
-          name,
-          dateOfBirth,
-          gender,
-          address,
-          nationality,
-          religion,
-        });
-        alert("Created!");
-      }
-
-      resetForm();
-      setShowForm(false);
-      setSearchTerm("");
-      setSearchResults([]);
-      refresh();
-    } catch (error) {
-      console.error("Submit error:", error);
+ const handleSubmit = async () => {
+  try {
+    if (!showForm) {
+      setShowForm(true);
+      return;
     }
-  };
 
+    if (!name.trim() || !dateOfBirth) {
+      alert("Please enter at least name and date of birth.");
+      return;
+    }
+
+    const savedPerson = await createPerson({
+      name,
+      dateOfBirth,
+      gender,
+      address,
+      nationality,
+      religion,
+    });
+
+    alert("Patient Created!");
+
+    navigate(`/vitals/${savedPerson.personId}`);
+
+    resetForm();
+    setShowForm(false);
+    setSearchTerm("");
+    setSearchResults([]);
+    refresh();
+
+  } catch (error) {
+    console.error("Submit error:", error);
+  }
+};
   return (
     <div className="form-shell">
       <div className="form-card">
@@ -119,11 +123,12 @@ const PersonForm = ({ refresh, editPerson }) => {
         </div>
 
         {/* RESULTS */}
+        {message && <div className="error-message">{message}</div>}
         {searchResults.length > 0 && (
           <div className="search-results">
             {searchResults.map((person) => (
               <div
-                key={person.id}
+                key={person.personId}
                 className="result-item"
                 onClick={() => handleSelectPerson(person)}
               >
@@ -168,29 +173,35 @@ const PersonForm = ({ refresh, editPerson }) => {
                 onChange={(e) => setAddress(e.target.value)}
               />
 
-              <input
+              <select
                 type="text"
                 placeholder="Nationality"
                 value={nationality}
                 onChange={(e) => setNationality(e.target.value)}
-              />
+              >
+                <option value="">Select Nationality</option>
+                <option value="African">African</option>
+                <option value="American">American</option>
+                <option value="Canadian">Canadian</option>
+              </select>
 
-              <input
+              <select
                 type="text"
                 placeholder="Religion"
                 value={religion}
                 onChange={(e) => setReligion(e.target.value)}
-              />
+              >
+                <option value="">Select Religion</option>
+                <option value="Christian">Christian</option>
+                <option value="Muslim">Muslim</option>
+                <option value="ATR">ATR</option>
+              </select>
             </div>
           </div>
         )}
 
         <button className="submit-btn" onClick={handleSubmit}>
-          {!showForm
-            ? "Register New Patient"
-            : editPerson || id
-            ? "Update Patient"
-            : "Save Patient"}
+          {!showForm ? "Register New Patient" : "Save Patient"}
         </button>
       </div>
     </div>
