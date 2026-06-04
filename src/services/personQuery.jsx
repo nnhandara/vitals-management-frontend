@@ -57,11 +57,8 @@ export const searchPersons = async (name) => {
         searchPersonQuery(name: $name) {
           personId
           name
-          address
           dateOfBirth
           gender
-          nationality
-          religion
         }
       }
     `,

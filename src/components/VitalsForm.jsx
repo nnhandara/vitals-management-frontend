@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getPersonById } from "../services/personQuery";
-import "../style/VitalsForm.css";
 import { useParams } from "react-router-dom";
+import { getPersonById } from "../services/personQuery";
+import { createVital } from "../services/vitalService";
+import "../style/VitalsForm.css";
 
 const VitalsForm = () => {
   const { personId } = useParams();
@@ -40,28 +41,32 @@ const VitalsForm = () => {
     return age;
   };
 
-useEffect(() => {
-  const fetchPatient = async () => {
-    try {
-      const patient = await getPersonById(personId);
-
-      if (patient) {
-        setSelectedPatient(patient);
-      } else {
-        setMessage("Patient details could not be found.");
+  useEffect(() => {
+    const fetchPatient = async () => {
+      if (!personId) {
+        setMessage("No patient selected. Please register a patient first.");
+        setLoadingPatient(false);
+        return;
       }
-    } catch (error) {
-      console.error("Error loading patient:", error);
-      setMessage("Failed to load patient details.");
-    } finally {
-      setLoadingPatient(false);
-    }
-  };
 
-  if (personId) {
+      try {
+        const patient = await getPersonById(personId);
+
+        if (patient) {
+          setSelectedPatient(patient);
+        } else {
+          setMessage("Patient details could not be found.");
+        }
+      } catch (error) {
+        console.error("Error loading patient:", error);
+        setMessage("Failed to load patient details.");
+      } finally {
+        setLoadingPatient(false);
+      }
+    };
+
     fetchPatient();
-  }
-}, [personId]);
+  }, [personId]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -84,37 +89,34 @@ useEffect(() => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!personId) {
-      setMessage("No patient selected. Please register a patient first.");
-      return;
-    }
+  if (!personId) {
+    setMessage("No patient selected. Please register a patient first.");
+    return;
+  }
 
-    const payload = {
-      personId,
-      temperature: Number(formData.temperature),
-      bloodPressure: formData.bloodPressure,
-      pulseRate: Number(formData.pulseRate),
-      respiratoryRate: Number(formData.respiratoryRate),
-      oxygenSaturation: Number(formData.oxygenSaturation),
-      weight: formData.weight ? Number(formData.weight) : null,
-      height: formData.height ? Number(formData.height) : null,
-      notes: formData.notes,
-    };
-
-    console.log("Vitals payload:", payload);
-
-    try {
-      // await createVital(payload);
-
-      setMessage("Vitals captured successfully.");
-      resetVitalsForm();
-    } catch (error) {
-      console.error("Error saving vitals:", error);
-      setMessage("Failed to save vitals.");
-    }
+  const payload = {
+    temperature: Number(formData.temperature),
+    bloodPressure: formData.bloodPressure,
+    pulseRate: Number(formData.pulseRate),
+    respiratoryRate: Number(formData.respiratoryRate),
+    oxygenSaturation: Number(formData.oxygenSaturation),
+    weight: formData.weight ? Number(formData.weight) : null,
+    height: formData.height ? Number(formData.height) : null,
+    notes: formData.notes,
   };
+
+  try {
+    await createVital(personId, payload);
+
+    setMessage("Vitals captured successfully.");
+    resetVitalsForm();
+  } catch (error) {
+    console.error("Error saving vitals:", error);
+    setMessage("Failed to save vitals.");
+  }
+};
 
   return (
     <div className="vitals-page">
@@ -138,9 +140,7 @@ useEffect(() => {
 
               <div>
                 <span className="info-label">Age</span>
-                <strong>
-                  {calculateAge(selectedPatient.dateOfBirth)} years
-                </strong>
+                <strong>{calculateAge(selectedPatient.dateOfBirth)} years</strong>
               </div>
 
               <div>

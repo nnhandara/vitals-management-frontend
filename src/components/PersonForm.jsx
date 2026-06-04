@@ -68,41 +68,40 @@ const PersonForm = ({ refresh, editPerson }) => {
     alert("Patient already exists.");
   };
 
- const handleSubmit = async () => {
-  try {
-    if (!showForm) {
-      setShowForm(true);
-      return;
+  const handleSubmit = async () => {
+    try {
+      if (!showForm) {
+        setShowForm(true);
+        return;
+      }
+
+      if (!name.trim() || !dateOfBirth) {
+        alert("Please enter at least name and date of birth.");
+        return;
+      }
+
+      const savedPerson = await createPerson({
+        name,
+        dateOfBirth,
+        gender,
+        address,
+        nationality,
+        religion,
+      });
+
+      alert("Patient Created!");
+
+      navigate(`/vitals/${savedPerson.personId}`);
+
+      resetForm();
+      setShowForm(false);
+      setSearchTerm("");
+      setSearchResults([]);
+      refresh();
+    } catch (error) {
+      console.error("Submit error:", error);
     }
-
-    if (!name.trim() || !dateOfBirth) {
-      alert("Please enter at least name and date of birth.");
-      return;
-    }
-
-    const savedPerson = await createPerson({
-      name,
-      dateOfBirth,
-      gender,
-      address,
-      nationality,
-      religion,
-    });
-
-    alert("Patient Created!");
-
-    navigate(`/vitals/${savedPerson.personId}`);
-
-    resetForm();
-    setShowForm(false);
-    setSearchTerm("");
-    setSearchResults([]);
-    refresh();
-
-  } catch (error) {
-    console.error("Submit error:", error);
-  }
-};
+  };
   return (
     <div className="form-shell">
       <div className="form-card">
@@ -114,6 +113,7 @@ const PersonForm = ({ refresh, editPerson }) => {
               placeholder="Search existing patient..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             />
           </div>
 
@@ -132,7 +132,15 @@ const PersonForm = ({ refresh, editPerson }) => {
                 className="result-item"
                 onClick={() => handleSelectPerson(person)}
               >
-                {person.name} - {person.dateOfBirth}
+                <div>
+                  <strong>Name:</strong> {person.name}
+                </div>
+                <div>
+                  <strong>Date of Birth:</strong> {person.dateOfBirth}
+                </div>
+                <div>
+                  <strong>Gender:</strong> {person.gender}
+                </div>
               </div>
             ))}
           </div>
