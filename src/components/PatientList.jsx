@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAllPersons } from "../services/personQuery";
+import { useNavigate } from "react-router-dom";
 import "../style/PatientList.css";
 
 const PatientList = () => {
@@ -8,6 +9,7 @@ const PatientList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   const fetchPatients = async () => {
     try {
@@ -88,6 +90,7 @@ const PatientList = () => {
                 <th>Address</th>
                 <th>Nationality</th>
                 <th>Religion</th>
+                <th>Actions</th>
               </tr>
             </thead>
 
@@ -100,6 +103,18 @@ const PatientList = () => {
                   <td>{p.address || ""}</td>
                   <td>{p.nationality || ""}</td>
                   <td>{p.religion || ""}</td>
+
+                  <td>
+                    <button
+                      className="capture-vitals-btn"
+                      onClick={() => {
+                        console.log("Navigating with personId:", p.personId);
+                        navigate(`/patients/${p.personId}/vitals`);
+                      }}
+                    >
+                      Capture Vitals
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -80,6 +80,7 @@ const VitalsForm = () => {
       temperature: "",
       bloodPressure: "",
       pulseRate: "",
+      heartRate: "",
       respiratoryRate: "",
       oxygenSaturation: "",
       weight: "",
@@ -97,9 +98,11 @@ const VitalsForm = () => {
   }
 
   const payload = {
+    personId,
     temperature: Number(formData.temperature),
     bloodPressure: formData.bloodPressure,
     pulseRate: Number(formData.pulseRate),
+    heartRate: Number(formData.pulseRate), // Assuming heart rate is the same as pulse rate
     respiratoryRate: Number(formData.respiratoryRate),
     oxygenSaturation: Number(formData.oxygenSaturation),
     weight: formData.weight ? Number(formData.weight) : null,
@@ -188,6 +191,18 @@ const VitalsForm = () => {
               required
             />
           </div>
+
+          <div className="form-group">
+            <label>Heart Rate</label>
+            <input
+              type="number"
+              name="heartRate"
+              value={formData.heartRate}
+              onChange={handleChange}
+              placeholder="72"
+              required
+            />
+          </div>  
 
           <div className="form-group">
             <label>Respiratory Rate</label>

@@ -81,3 +81,17 @@
   color: red;
   font-size: 16px;
 }
+
+.capture-vitals-btn {
+  background: #2f4372;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.capture-vitals-btn:hover {
+  background: #1d4ed8;
+}

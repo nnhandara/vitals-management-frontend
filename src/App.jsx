@@ -24,7 +24,7 @@ function App() {
             <Route path="/home" element={<PersonForm refresh={refresh} />} />
             <Route path="/" element={<PersonForm refresh={refresh} />} />
             <Route path="/patients" element={<PersonList />} />
-            <Route path="/vitals/:personId" element={<VitalsForm />} />
+            <Route path="/patients/:personId/vitals" element={<VitalsForm />} />
           </Routes>
         </div>
       </div>
