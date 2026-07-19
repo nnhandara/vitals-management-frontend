@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import PersonForm from "./components/PersonForm";
 import PersonList from "./components/PatientList";
 import VitalsForm from "./components/VitalsForm";
+import PatientVitals from "./components/PatientVitals";
 import "./App.css";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route path="/" element={<PersonForm refresh={refresh} />} />
             <Route path="/patients" element={<PersonList />} />
             <Route path="/patients/:personId/vitals" element={<VitalsForm />} />
+            <Route path="/vitals/history/:personId" element={<PatientVitals />} />
           </Routes>
         </div>
       </div>

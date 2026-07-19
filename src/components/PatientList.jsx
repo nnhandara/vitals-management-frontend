@@ -105,15 +105,21 @@ const PatientList = () => {
                   <td>{p.religion || ""}</td>
 
                   <td>
-                    <button
-                      className="capture-vitals-btn"
-                      onClick={() => {
-                        console.log("Navigating with personId:", p.personId);
-                        navigate(`/patients/${p.personId}/vitals`);
-                      }}
-                    >
-                      Capture Vitals
-                    </button>
+                    <div className="action-buttons">
+                      <button
+                        className="view-vitals-btn"
+                        onClick={() => navigate(`/vitals/history/${p.personId}`)}
+                      >
+                        View Vitals
+                      </button>
+
+                      <button
+                        className="capture-vitals-btn"
+                        onClick={() => navigate(`/patients/${p.personId}/vitals`)}
+                      >
+                        Capture Vitals
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

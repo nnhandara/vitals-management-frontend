@@ -1,0 +1,145 @@
+.patient-vitals-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fff8e7;
+}
+
+.patient-vitals-container h2 {
+  text-align: center;
+  color: #5c4033;
+  margin-bottom: 30px;
+}
+
+/* Patient Details Card */
+
+.patient-card {
+  background-color: white;
+  border-left: 8px solid #d4a017;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(92, 64, 51, 0.15);
+  margin-bottom: 30px;
+}
+
+.patient-card h3 {
+  color: #8b5e3c;
+  margin-bottom: 15px;
+}
+
+.patient-card p {
+  margin: 10px 0;
+  color: #5c4033;
+  line-height: 1.6;
+}
+
+.patient-card strong {
+  color: #8b5e3c;
+}
+
+/* Messages */
+
+.loading,
+.error {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.error {
+  color: #b22222;
+}
+
+/* Vitals Table */
+
+.vitals-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(92, 64, 51, 0.15);
+}
+
+/* Table Header */
+
+.vitals-table thead {
+  background-color: #8b5e3c;
+  color: white;
+}
+
+.vitals-table th {
+  padding: 16px;
+  text-align: left;
+  font-weight: bold;
+}
+
+/* Table Body */
+
+.vitals-table td {
+  padding: 15px;
+  border-bottom: 1px solid #f0e0b6;
+  color: #5c4033;
+}
+
+/* Alternate row colouring */
+
+.vitals-table tbody tr:nth-child(even) {
+  background-color: #fff8e7;
+}
+
+/* Hover effect */
+
+.vitals-table tbody tr:hover {
+  background-color: #f4d35e;
+  transition: 0.3s ease;
+}
+
+/* Last row */
+
+.vitals-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Temperature */
+
+.vitals-table td:nth-child(2) {
+  font-weight: 600;
+}
+
+/* Oxygen Saturation */
+
+.vitals-table td:nth-child(6) {
+  font-weight: 600;
+}
+
+/* No vitals text */
+
+.patient-vitals-container p {
+  color: #5c4033;
+}
+
+/* Responsive Table */
+
+@media (max-width: 900px) {
+  .patient-vitals-container {
+    padding: 15px;
+  }
+
+  .vitals-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .vitals-table th,
+  .vitals-table td {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .patient-card {
+    padding: 20px;
+  }
+}

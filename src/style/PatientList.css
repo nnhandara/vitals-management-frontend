@@ -82,14 +82,32 @@
   font-size: 16px;
 }
 
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.view-vitals-btn,
 .capture-vitals-btn {
-  background: #2f4372;
-  color: white;
   border: none;
   padding: 8px 14px;
   border-radius: 6px;
   cursor: pointer;
+  color: white;
   font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.view-vitals-btn {
+  background: #16a34a;
+}
+
+.view-vitals-btn:hover {
+  background: #15803d;
+}
+
+.capture-vitals-btn {
+  background: #2563eb;
 }
 
 .capture-vitals-btn:hover {

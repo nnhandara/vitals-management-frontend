@@ -2,8 +2,9 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8080/person";
 
-export const createPerson = (data) => {
-  return axios.post(`${API_URL}/create`, data);
+export const createPerson = async (data) => {
+  const response = await axios.post(`${API_URL}/create`, data);
+  return response.data;
 };
 
 export const updatePerson = (id, data) => {

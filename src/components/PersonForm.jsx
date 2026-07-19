@@ -91,7 +91,7 @@ const PersonForm = ({ refresh, editPerson }) => {
 
       alert("Patient Created!");
 
-      navigate(`/vitals/${savedPerson.personId}`);
+      navigate(`/patients/${savedPerson.personId}/vitals`);
 
       resetForm();
       setShowForm(false);
